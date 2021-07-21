@@ -74,6 +74,8 @@ def main(opt):
     # print(excluded_node_types)
 
     subtrees = []
+
+    #generates directory tree
     for subdir , dirs, files in os.walk(opt.input_directory): 
         for file in files:
             file_path = os.path.join(subdir,file)
@@ -93,7 +95,10 @@ def main(opt):
             parser_lang = Languages.get(lang)
             parser.set_language(parser_lang)
 
+            #read file as binary data - returns bytes
             data = open(file_path, "rb").read()
+
+            #TODO 
             tree = parser.parse(data)
             subtrees_flattened = {}
             print_subtree(data, tree.root_node, subtrees_flattened, excluded_node_types)
@@ -102,8 +107,8 @@ def main(opt):
             
             for key, subtree in subtrees_flattened.items():
                 print("--------------------")
-                nodes = subtree.split(",")
-                nodes = nodes[:len(nodes)-1]
+                nodes = subtree.split(",") # find nodes of subtree
+                nodes = nodes[:len(nodes)-1] #discard last node?
                 print(nodes)
                 subtree_arr = []
                 for node in nodes:

@@ -15,6 +15,7 @@ import collections
 import sys
 import argparse
 
+# merge all subtrees into a set of subtree vocabulary
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--worker", default=6, type=int, help="Num worker")

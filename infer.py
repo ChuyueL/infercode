@@ -47,6 +47,7 @@ def form_model_path(opt):
     return opt.model + "_" + "sampled_softmax" + "_" + "-".join(model_path)
 
 
+# what is opt?
 def main(opt):
     
     opt.model_path = os.path.join(opt.model_path, form_model_path(opt))
