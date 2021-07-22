@@ -23,7 +23,7 @@ class ASTUtil():
         for file in glob.glob("*.so"):
           try:
             lang = os.path.splitext(file)[0]
-            Languages[lang] = Language(path.join(home, ".tree-sitter", "bin", file), lang)
+            Languages[lang] = Language(path.join(home, "infercode", ".tree-sitter", "bin", file), lang)
           except:
             print("An exception occurred to {}".format(lang))
         os.chdir(cd)
