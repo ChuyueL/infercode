@@ -2,7 +2,7 @@ import sys
 from pathlib import Path
 # To import upper level modules
 sys.path.append(str(Path('.').absolute().parent))
-from src.client.infercode_client import InferCodeClient
+from infercode.client.infercode_client import InferCodeClient
 import logging
 logging.basicConfig(level=logging.INFO)
 
