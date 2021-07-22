@@ -18,7 +18,7 @@ class ASTUtil():
         # ------------ To initialize for the treesitter parser ------------
         home = str(Path.home())
         cd = os.getcwd()
-        os.chdir(path.join(home, ".tree-sitter", "bin"))
+        os.chdir(path.join(home, "infercode", ".tree-sitter", "bin"))
         Languages = {}
         for file in glob.glob("*.so"):
           try:
