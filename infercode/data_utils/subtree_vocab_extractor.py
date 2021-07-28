@@ -6,31 +6,40 @@ from .vocabulary import Vocabulary
 from pathlib import Path
 import os
 from tqdm import *
-from .ast_util import ASTUtil
-
+from .subtree_util import SubtreeUtil
+from .ast_parser import ASTParser
+from .language_util import LanguageUtil
+import os
 
 class SubtreeVocabExtractor():
 
 
-    def __init__(self, input_data_path: str, output_subtree_vocab_prefix: str,
-                node_type_vocab_model_path: str, node_token_vocab_model_path: str, ast_util: ASTUtil):
+    def __init__(self, subtree_vocab_model_prefix: str):
 
-        self.input_data_path = input_data_path
-        self.output_subtree_vocab_prefix = output_subtree_vocab_prefix
+        self.subtree_vocab_model_prefix = subtree_vocab_model_prefix
         self.subtree_vocab = Vocabulary(100000)
-        self.ast_util = ast_util
+        self.subtree_util = SubtreeUtil()
+        self.ast_parser = ASTParser()
+        self.language_util = LanguageUtil()
         # self.ast_util = ASTUtil(node_type_vocab_model_path=node_type_vocab_model_path, 
         #                         node_token_vocab_model_path=node_token_vocab_model_path, language=language)
 
-    def create_vocab(self):
+    def detect_language_of_file(self, file_path: str):
+        _, file_extension = os.path.splitext(file_path)
+        return self.language_util.get_language_by_file_extension(file_extension)
+
+    def create_vocab_from_dir(self, input_data_path: str):
         all_subtrees_vocab = []
-        for subdir , dirs, files in os.walk(self.input_data_path): 
+        for subdir , dirs, files in os.walk(input_data_path): 
             for file in tqdm(files):
                 file_path = os.path.join(subdir, file)
                 
-                with open(file_path, "rb") as f:
+                with open(file_path, "rb", errors='ignore') as f:
                     code_snippet = f.read()
-                subtrees = self.ast_util.extract_subtrees(code_snippet)
+
+                language = self.detect_language_of_file(file_path)
+                tree = self.ast_parser.parse(code_snippet, language)
+                subtrees = self.subtree_util.extract_subtrees(tree)
                 all_subtrees_vocab.extend(subtrees)
         
         all_subtrees_vocab_filtered = []
@@ -46,7 +55,7 @@ class SubtreeVocabExtractor():
         
         # model_type must be "word" for subtree vocab
         self.subtree_vocab.create_vocabulary(tokens=all_subtrees_vocab_concat, 
-                                            model_filename=self.output_subtree_vocab_prefix, 
+                                            model_filename=self.subtree_vocab_model_prefix, 
                                             model_type="word") 
         return self.subtree_vocab
         
