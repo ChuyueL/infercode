@@ -13,6 +13,8 @@ def cosine_similarity(a, b):
     similarity = np.dot(a, b)/(np.linalg.norm(a) * np.linalg.norm(b))
     return similarity
 
+def remove_trailing_spaces(arr):
+    return [s.strip() for s in arr]
 
 parser = argparse.ArgumentParser()
 parser.add_argument('file1', type = str, help = '')
@@ -28,18 +30,18 @@ with open(file2) as f:
 with open(file2) as f:
     code2 = f.read().splitlines()
 
+code1 = remove_trailing_spaces(code1)
 code1 = ' '.join(code1)
+code2 = remove_trailing_spaces(code2)
 code2 = ' '.join(code2)
 
 print(code1)
 print(code2)
 
-
 infercode = InferCodeClient(language="c")
 infercode.init_from_config()
 
 vectors = infercode.encode([code1, code2])
-
 
 if cosine_similarity(vectors[0], vectors[1]) > 0.8:
     print("code clone")
@@ -47,4 +49,3 @@ if cosine_similarity(vectors[0], vectors[1]) > 0.8:
 else:
     print("not clone")
     print(cosine_similarity(vectors[0], vectors[1]))
-
