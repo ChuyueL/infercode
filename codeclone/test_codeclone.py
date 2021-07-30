@@ -3,6 +3,7 @@ import numpy as np
 import sys
 import argparse
 from pathlib import Path
+from scipy import spatial
 # To import upper level modules
 sys.path.append(str(Path('.').absolute().parent))
 from infercode.client.infercode_client import InferCodeClient
@@ -10,7 +11,8 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 def cosine_similarity(a, b):
-    similarity = np.dot(a, b)/(np.linalg.norm(a) * np.linalg.norm(b))
+    #similarity = np.dot(a, b)/(np.linalg.norm(a) * np.linalg.norm(b))
+    similarity = 1 - spatial.distance.cosine(a, b)
     return similarity
 
 def remove_trailing_spaces(arr):
