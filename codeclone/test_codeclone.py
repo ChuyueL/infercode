@@ -44,7 +44,7 @@ infercode = InferCodeClient(language="c")
 infercode.init_from_config()
 
 #vectors = infercode.encode([code1, code2])
-vectors = infercode.encode(["if (x < 0) then { y = 0 } else { y = 1 }", "int i = 0"])
+vectors = infercode.encode(["char c = 'c'", "int i = 0"])
 
 if cosine_similarity(vectors[0], vectors[1]) > 0.8:
     print("code clone")
