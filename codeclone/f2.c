@@ -1,4 +1,6 @@
-int clear_i;
+int main()
+{
+    int clear_i;
     int i, left_i, cur_sz, cur_num;
     n_obj **cl;
     n_obj *temp;
@@ -59,3 +61,5 @@ int clear_i;
         printf(\"Number of partitions = %d\n\", cur_sz);
      
     }
+    return 0;
+}
