@@ -45,6 +45,7 @@ infercode.init_from_config()
 
 vectors = infercode.encode([code1, code2])
 #vectors = infercode.encode(["return 1", "int i = 0"])
+print(vectors)
 
 if cosine_similarity(vectors[0], vectors[1]) > 0.8:
     print("code clone")
