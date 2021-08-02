@@ -26,22 +26,20 @@ class LanguageUtil():
                 "python": ".py",
                 "ruby": ".rb",
                 "rust": ".rs",
-                "r": ".r",
                 "scala": ".scala",
-                "haskell": ".hs",
-                "lua": ".lua",
                 "kotlin": ".kt",
                 "solidity": ".sol",
                 "html": ".html",
                 "css": ".css",
-                "markdown": ".md"
+                "haskell": ".hs",
+                "r": ".r"
         })
     
     def get_language_by_file_extension(self, extension):
         return self.languages.inverse[extension]
         
     def get_language_index(self, language):
-        return self.languages.keys().index(language)
+        return list(self.languages.keys()).index(language)
 
     def get_num_languages(self):
         return len(self.languages.keys())
