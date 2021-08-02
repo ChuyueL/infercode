@@ -40,7 +40,7 @@ code2 = ' '.join(code2)
 print(code1)
 print(code2)
 
-infercode = InferCodeClient(language="java")
+infercode = InferCodeClient(language="c")
 infercode.init_from_config()
 
 vectors = infercode.encode([code1, code2])
