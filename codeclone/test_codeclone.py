@@ -26,7 +26,7 @@ args = parser.parse_args()
 file1 = args.file1
 file2 = args.file2
 
-with open(file2) as f:
+with open(file1) as f:
     code1 = f.read().splitlines()
 
 with open(file2) as f:
