@@ -47,7 +47,7 @@ files = [f for f in listdir(path) if isfile(join(path, f))]
 vectors = []
 
 for entry in files:
-    filepath = join(sys.path[0], "files", entry[0])
+    filepath = join(sys.path[0], "files", entry)
     vector = encode_file(filepath)
     vectors.append(vector)
 
