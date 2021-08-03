@@ -21,7 +21,8 @@ def read_file(filepath):
 
 def encode_file(filepath):
     code = read_file(filepath)
-    lang = splitext(filepath).replace('.', '')
+    _, extension = splitext(filepath)
+    lang = extension.replace('.', '')
     print(lang)
     infercode = InferCodeClient(language=lang)
     infercode.init_from_config()
