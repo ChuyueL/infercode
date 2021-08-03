@@ -51,6 +51,6 @@ for entry in files:
     vector = encode_file(filepath)
     vectors.append(vector)
 
-code_vecs = np.column_stack(files, vectors)
+code_vecs = np.column_stack((files, vectors))
 
 
