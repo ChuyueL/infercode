@@ -32,8 +32,7 @@ class LanguageUtil():
                 "html": ".html",
                 "css": ".css",
                 "haskell": ".hs",
-                "r": ".r"
-        })
+                "r": ".r"})
     
     def get_language_by_file_extension(self, extension):
         return self.languages.inverse[extension]
