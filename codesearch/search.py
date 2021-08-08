@@ -6,8 +6,10 @@ import numpy as np
 import argparse
 from pathlib import Path
 from scipy import spatial
+from sklearn.neighbors import NearestNeighbors
 sys.path.append(str(Path('.').absolute().parent))
 from infercode.client.infercode_client import InferCodeClient
+from infercode.data_utils.language_util import LanguageUtil
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -22,7 +24,9 @@ def read_file(filepath):
 def encode_file(filepath):
     code = read_file(filepath)
     _, extension = splitext(filepath)
-    lang = extension.replace('.', '')
+    util = LanguageUtil()
+    #lang = extension.replace('.', '')
+    lang = util.get_language_by_file_extension(extension)
     print(lang)
     infercode = InferCodeClient(language=lang)
     infercode.init_from_config()
@@ -52,5 +56,15 @@ for entry in files:
     vectors.append(vector)
 
 code_vecs = np.column_stack((files, vectors))
+
+neighbours = NearestNeighbors(n_neighbours = 2).fit(vectors)
+#will return indices - just find the filename using the index
+indices = neighbours.kneighbours(original_vector, return_distance = False)
+closest_files = []
+for i in indices:
+    closest_files.append(files[i])
+
+print(closest_files)
+
 
 
