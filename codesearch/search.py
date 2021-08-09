@@ -14,12 +14,12 @@ sys.path.append(str(Path('.').absolute().parent))
 import infercode
 infercode = importlib.reload(infercode)
 from infercode.client.infercode_client import InferCodeClient
-from infercode.data_utils import language_util
+from infercode.data_utils.language_util1 import LanguageUtil
 import logging
 logging.basicConfig(level=logging.INFO)
 
-language_util = importlib.reload(language_util)
-print(language_util)
+#language_util = importlib.reload(language_util)
+#print(language_util)
 
 def read_file(filepath):
     with open(filepath) as f:
@@ -33,7 +33,7 @@ def encode_file(filepath):
     code = read_file(filepath)
     _, extension = splitext(filepath)
     pdb.set_trace()
-    util = language_util.LanguageUtil()
+    util = LanguageUtil()
     #lang = extension.replace('.', '')
     lang = util.get_language_by_file_extension(extension)
     print(lang)
