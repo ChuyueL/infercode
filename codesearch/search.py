@@ -41,7 +41,7 @@ def encode_file(filepath):
 def remove_trailing_spaces(arr):
     return [s.strip() for s in arr]
 
-importlib.reload(LanguageUtil)
+#importlib.reload(infercode.client.infercode_client)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('file', type = str, help = 'File to search for implementations of in other languages')
