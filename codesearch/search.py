@@ -16,6 +16,8 @@ from infercode.data_utils import language_util
 import logging
 logging.basicConfig(level=logging.INFO)
 
+importlib.reload(language_util)
+
 def read_file(filepath):
     with open(filepath) as f:
         code = f.read().splitlines()
@@ -41,7 +43,7 @@ def encode_file(filepath):
 def remove_trailing_spaces(arr):
     return [s.strip() for s in arr]
 
-importlib.reload(language_util)
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('file', type = str, help = 'File to search for implementations of in other languages')
