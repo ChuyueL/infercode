@@ -25,9 +25,9 @@ def read_file(filepath):
 def encode_file(filepath):
     code = read_file(filepath)
     _, extension = splitext(filepath)
+    pdb.set_trace()
     util = LanguageUtil()
     #lang = extension.replace('.', '')
-    pdb.set_trace()
     lang = util.get_language_by_file_extension(extension)
     print(lang)
     infercode = InferCodeClient(language=lang)
