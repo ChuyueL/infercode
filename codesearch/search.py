@@ -12,6 +12,7 @@ from sklearn.neighbors import NearestNeighbors
 from infercode.data_utils import language_util
 sys.path.append(str(Path('.').absolute().parent))
 from infercode.client.infercode_client import InferCodeClient
+import infercode
 from infercode.data_utils import language_util
 import logging
 logging.basicConfig(level=logging.INFO)
@@ -29,7 +30,7 @@ def read_file(filepath):
 def encode_file(filepath):
     code = read_file(filepath)
     _, extension = splitext(filepath)
-    #pdb.set_trace()
+    spdb.set_trace()
     util = language_util.LanguageUtil()
     #lang = extension.replace('.', '')
     lang = util.get_language_by_file_extension(extension)
