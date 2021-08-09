@@ -1,6 +1,7 @@
 from os import listdir
 from os.path import isfile, join, splitext
 from sklearn.cluster import KMeans
+import pdb
 import sys 
 import numpy as np
 import argparse
@@ -26,6 +27,7 @@ def encode_file(filepath):
     _, extension = splitext(filepath)
     util = LanguageUtil()
     #lang = extension.replace('.', '')
+    pdb.set_trace()
     lang = util.get_language_by_file_extension(extension)
     print(lang)
     infercode = InferCodeClient(language=lang)
