@@ -30,7 +30,7 @@ def read_file(filepath):
 def encode_file(filepath):
     code = read_file(filepath)
     _, extension = splitext(filepath)
-    spdb.set_trace()
+    pdb.set_trace()
     util = language_util.LanguageUtil()
     #lang = extension.replace('.', '')
     lang = util.get_language_by_file_extension(extension)
