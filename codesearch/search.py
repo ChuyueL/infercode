@@ -2,6 +2,7 @@ from os import listdir
 from os.path import isfile, join, splitext
 from sklearn.cluster import KMeans
 import pdb
+import importlib
 import sys 
 import numpy as np
 import argparse
@@ -39,6 +40,8 @@ def encode_file(filepath):
 
 def remove_trailing_spaces(arr):
     return [s.strip() for s in arr]
+
+importlib.reload(LanguageUtil)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('file', type = str, help = 'File to search for implementations of in other languages')
