@@ -12,7 +12,7 @@ from sklearn.neighbors import NearestNeighbors
 from infercode.data_utils import language_util
 sys.path.append(str(Path('.').absolute().parent))
 from infercode.client.infercode_client import InferCodeClient
-from infercode.data_utils.language_util import LanguageUtil
+from infercode.data_utils import language_util
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -28,7 +28,7 @@ def encode_file(filepath):
     code = read_file(filepath)
     _, extension = splitext(filepath)
     #pdb.set_trace()
-    util = LanguageUtil()
+    util = language_util.LanguageUtil()
     #lang = extension.replace('.', '')
     lang = util.get_language_by_file_extension(extension)
     print(lang)
@@ -41,7 +41,7 @@ def encode_file(filepath):
 def remove_trailing_spaces(arr):
     return [s.strip() for s in arr]
 
-#importlib.reload(infercode.client.infercode_client)
+importlib.reload(language_util)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('file', type = str, help = 'File to search for implementations of in other languages')
