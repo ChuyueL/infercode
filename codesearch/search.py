@@ -18,7 +18,7 @@ from infercode.data_utils import language_util
 import logging
 logging.basicConfig(level=logging.INFO)
 
-#language_util = importlib.reload(language_util)
+language_util = importlib.reload(language_util)
 
 def read_file(filepath):
     with open(filepath) as f:
