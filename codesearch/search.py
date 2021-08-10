@@ -69,7 +69,7 @@ for entry in files:
 
 code_vecs = np.column_stack((files, vectors))
 
-neighbours = NearestNeighbors(n_neighbours = 2).fit(vectors)
+neighbours = NearestNeighbors(n_neighbors = 2).fit(vectors)
 #will return indices - just find the filename using the index
 indices = neighbours.kneighbours(original_vector, return_distance = False)
 closest_files = []
