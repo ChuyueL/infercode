@@ -82,11 +82,12 @@ neighbours = NearestNeighbors(n_neighbors = 2).fit(vectors)
 indices = neighbours.kneighbors([original_vector], return_distance = False)
 closest_files = []
 print("indices: ", indices)
-for count, i in enumerate(indices):
+indices = indices[0] #remove outer list
+for i in indices:
     print("returned index: ", i)
-    arr_index = i[count]
-    print("actual index: ", arr_index)
-    closest_files.append(files[arr_index])
+    #arr_index = i[count]
+    #print("actual index: ", arr_index)
+    closest_files.append(files[i])
 
 print(closest_files)
 
