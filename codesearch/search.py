@@ -40,6 +40,7 @@ def encode_file(filepath):
     print(lang)
     infercode = InferCodeClient(language=lang)
     infercode.init_from_config()
+    print("code again: ", code)
     vector = infercode.encode(code)
     return vector
 
