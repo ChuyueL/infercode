@@ -68,6 +68,8 @@ for entry in files:
     print("current vector:", vector)
     vectors.append(vector)
 
+vectors = np.array(vectors)
+
 code_vecs = np.column_stack((files, vectors))
 print("all vectors: ", vectors)
 
