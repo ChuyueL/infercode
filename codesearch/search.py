@@ -81,9 +81,9 @@ neighbours = NearestNeighbors(n_neighbors = 2).fit(vectors)
 #will return indices - just find the filename using the index
 indices = neighbours.kneighbors([original_vector], return_distance = False)
 closest_files = []
-for i in indices:
+for count, i in indices:
     print("returned index: ", i)
-    arr_index = i[0][0]
+    arr_index = i[count]
     print("actual index: ", arr_index)
     closest_files.append(files[arr_index])
 
