@@ -79,7 +79,7 @@ print("all vectors: ", vectors)
 
 neighbours = NearestNeighbors(n_neighbors = 2).fit(vectors)
 #will return indices - just find the filename using the index
-indices = neighbours.kneighbours(original_vector, return_distance = False)
+indices = neighbours.kneighbors(original_vector, return_distance = False)
 closest_files = []
 for i in indices:
     closest_files.append(files[i])
