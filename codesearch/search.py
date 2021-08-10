@@ -65,9 +65,11 @@ vectors = []
 for entry in files:
     filepath = join(sys.path[0], "files", entry)
     vector = encode_file(filepath)
+    print("current vector:", vector)
     vectors.append(vector)
 
 code_vecs = np.column_stack((files, vectors))
+print("all vectors: ", vectors)
 
 neighbours = NearestNeighbors(n_neighbors = 2).fit(vectors)
 #will return indices - just find the filename using the index
