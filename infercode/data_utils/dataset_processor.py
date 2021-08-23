@@ -59,12 +59,10 @@ class DatasetProcessor():
         for subdir , dirs, files in os.walk(self.input_data_path): 
             for file in tqdm(files):
                 file_path = os.path.join(subdir, file)
-                
-                with open(file_path, "r", errors="ignore") as f:
+                with open(file_path, "rb") as f:
                     code_snippet = f.read()
-
-                ast = self.ast_parser.parse(str.encode(code_snippet))
-                tree_representation, tree_size = self.ast_util.simplify_ast(ast, str.encode(code_snippet))
+                ast = self.ast_parser.parse(code_snippet)
+                tree_representation, tree_size = self.ast_util.simplify_ast(ast, code_snippet.decode("utf-8"))
 
                 tree_indexes = self.tensor_util.transform_tree_to_index(tree_representation)
                 tree_indexes["size"] = tree_size 
@@ -72,18 +70,21 @@ class DatasetProcessor():
                 # Extract all subtrees from the code snippet
                 subtrees = self.subtree_util.extract_subtrees(ast)
                 
+
                 # ----------Convert subtree string to id----------
                 subtrees_id = []
                 for subtree in subtrees:
-                    subtree_str = "-".join(subtree)
-                    subtree_id = self.subtree_vocab.get_id_or_unk_for_text(subtree_str)
-                    
-                    if len(subtree_id) == 1 and subtree_id[0] != 0:
-                        subtrees_id.append(subtree_id[0])
+                    if len(subtree) >= 4 and len(subtree) <= 16:
+                        subtree_str = "-".join(subtree)
+                        subtree_id = self.subtree_vocab.get_id_from_piece(subtree_str)
+                        if subtree_id != 0:
+                            subtrees_id.append(subtree_id)
 
+                # Assert to make sure the list of subtrees must NOT be 0, if it is 0, then it's likely a bug
+                assert len(subtrees_id) > 0
                 subtrees_id = list(set(subtrees_id))
-                # --------------------------------------------------
                 
+                print(subtrees_id)
                 # Put different instances of the same snippet (with different subtree id) into buckets for training
                 for subtree_id in subtrees_id:
                     tree_indexes["subtree_id"] = subtree_id

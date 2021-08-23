@@ -1,8 +1,5 @@
 import tensorflow.compat.v1 as tf
 import sys
-from pathlib import Path
-# To import upper level modules
-sys.path.append(str(Path('.').absolute().parent))
 import logging
 
 class InferCodeModel():
@@ -152,7 +149,7 @@ class InferCodeModel():
                                                               biases=self.weights["subtree_embeddings_bias"], 
                                                               labels=self.placeholders["labels"], 
                                                               inputs=self.code_vector, 
-                                                              num_sampled=200, 
+                                                              num_sampled=1000, 
                                                               num_classes=self.num_subtrees)
             self.loss = tf.reduce_mean(input_tensor=self.sampled_softmax_loss)
             # self.loss = self.sampled_softmax_loss + 0.1*self.language_label_loss

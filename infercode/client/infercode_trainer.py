@@ -1,9 +1,7 @@
 import sys
 import os
-import pickle
-from pathlib import Path
-# To import upper level modules
-sys.path.append(str(Path('.').absolute().parent))
+infercode_dir = (os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(infercode_dir)
 import logging
 from data_utils.ast_util import ASTUtil
 from data_utils.token_vocab_extractor import TokenVocabExtractor
@@ -22,13 +20,16 @@ class InferCodeTrainer(BaseClient):
 
     LOGGER = logging.getLogger('InferCodeTrainer')
 
-    def __init__(self, language):
+    def __init__(self, language, input_data_path, output_processed_data_path):
         self.language = language
-
+        self.data_path = input_data_path
+        self.output_processed_data_path = output_processed_data_path
 
     def init_from_config(self, config=None):
         # Load default config if do not provide an external one
-        self.init_params(config)
+        self.load_configs(config)
+        self.init_params()
+        self.init_resources()
         self.init_utils()
         self.init_model_checkpoint()
 
@@ -94,7 +95,7 @@ class InferCodeTrainer(BaseClient):
                 )
 
                 self.LOGGER.info(f"Training at epoch {epoch} and step {train_step} with loss {err}")
-                v = train_step % self.checkpoint_every
+                train_step % self.checkpoint_every
                 if train_step % self.checkpoint_every == 0:
                     self.saver.save(self.sess, self.checkfile)                  
                     self.LOGGER.info(f"Checkpoint saved, epoch {epoch} and step {train_step} with loss {err}")

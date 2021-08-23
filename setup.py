@@ -1,4 +1,5 @@
 from setuptools import setup, find_packages
+from infercode.configs.__version__ import version
 
 
 install_requires=[
@@ -19,7 +20,7 @@ install_requires=[
 
 setup(
   name = 'infercode',
-  version = '0.0.11',
+  version = version,
   py_modules = ['infercode'],
   description = 'Map any code snippet into vector',
   author = 'Nghi D. Q. Bui and Yijun Yu',
@@ -35,6 +36,7 @@ setup(
   ],
   package_dir={"infercode": "infercode"},
   packages=find_packages(where=".", exclude=["tests", "logo", "datasets"]),
-  package_data={'infercode': ['configs/*.ini']},
-  install_requires=install_requires
+  package_data={'infercode': ['configs/*.ini', 'sentencepiece_vocab/*', 'sentencepiece_vocab/node_types/*' , 'sentencepiece_vocab/subtrees/*', 'sentencepiece_vocab/tokens/*' ]},
+  install_requires=install_requires,
+  include_package_data=True,
 )

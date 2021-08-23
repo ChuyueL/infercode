@@ -1,13 +1,10 @@
 import os
 import logging
-import coloredlogs
 import sys
-from pathlib import Path
-# To import upper level modules
-sys.path.append(str(Path('.').absolute().parent))
+infercode_dir = (os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(infercode_dir)
 from data_utils.ast_util import ASTUtil
 from data_utils.ast_parser import ASTParser
-import configparser
 import tensorflow.compat.v1 as tf
 from network.infercode_network import InferCodeModel
 from data_utils.vocabulary import Vocabulary
@@ -26,7 +23,9 @@ class InferCodeClient(BaseClient):
 
     def init_from_config(self, config=None):        
         
-        self.init_params(config)
+        self.load_configs(config)
+        self.init_params()
+        self.init_resources()
         self.init_utils()
         self.init_model_checkpoint()
 
@@ -61,8 +60,10 @@ class InferCodeClient(BaseClient):
     def snippets_to_tensors(self, batch_code_snippets):
         batch_tree_indexes = []
         for code_snippet in batch_code_snippets:
-            ast = self.ast_parser.parse(str.encode(code_snippet))
-            tree_representation, _ = self.ast_util.simplify_ast(ast, str.encode(code_snippet))
+            # tree-sitter parser requires bytes as the input, not string
+            code_snippet_to_byte = str.encode(code_snippet)
+            ast = self.ast_parser.parse(code_snippet_to_byte)
+            tree_representation, _ = self.ast_util.simplify_ast(ast, code_snippet)
             tree_indexes = self.tensor_util.transform_tree_to_index(tree_representation)
             batch_tree_indexes.append(tree_indexes)
          
@@ -84,5 +85,4 @@ class InferCodeClient(BaseClient):
                 self.infercode_model.placeholders["dropout_rate"]: 0.0
             }
         )
-        print(embeddings[0].shape)
         return embeddings[0]
