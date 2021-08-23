@@ -15,32 +15,6 @@ class ASTUtil():
 
     def __init__(self, node_type_vocab_model_path: str, node_token_vocab_model_path: str):
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    def __init__(self, node_type_vocab_model_path: str, node_token_vocab_model_path: str, language: str="java"):
-
-        # ------------ To initialize for the treesitter parser ------------
-        home = str(Path.home())
-        cd = os.getcwd()
-        os.chdir(path.join(home, "infercode", ".tree-sitter", "bin"))
-        Languages = {}
-        for file in glob.glob("*.so"):
-          try:
-            lang = os.path.splitext(file)[0]
-            Languages[lang] = Language(path.join(home, "infercode", ".tree-sitter", "bin", file), lang)
-          except:
-            print("An exception occurred to {}".format(lang))
-        os.chdir(cd)
-        self.parser = Parser()
-        lang = Languages.get(language)
-        self.parser.set_language(lang)
-        # -----------------------------------------------------------------
-
-=======
-        self.ast_parser = ast_parser
->>>>>>> upstream/master
-=======
->>>>>>> upstream/master
         self.type_vocab = Vocabulary(1000, node_type_vocab_model_path)
         self.token_vocab = Vocabulary(100000, node_token_vocab_model_path)
 
@@ -109,5 +83,3 @@ class ASTUtil():
                     queue_json.append(child_json)
 
         return root_json, num_nodes
-
-   
