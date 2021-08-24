@@ -5,7 +5,7 @@ from pathlib import Path
 from scipy import spatial
 # To import upper level modules
 sys.path.append(str(Path('.').absolute().parent))
-from infercode.client.infercode_client import InferCodeClient
+from client.infercode_client import InferCodeClient
 import logging
 logging.basicConfig(level=logging.INFO)
 

@@ -11,9 +11,7 @@ from scipy import spatial
 from sklearn.neighbors import NearestNeighbors
 from infercode.data_utils import language_util
 sys.path.append(str(Path('.').absolute().parent))
-import infercode
-infercode = importlib.reload(infercode)
-from infercode.client.infercode_client import InferCodeClient
+from client.infercode_client import InferCodeClient
 #from infercode.data_utils.language_util import LanguageUtil
 from language_util import LanguageUtil
 import logging
