@@ -3,13 +3,12 @@ from os.path import isfile, join, splitext
 from sklearn.cluster import KMeans
 import pdb
 import importlib
-import sys 
+import sys
 import numpy as np
 import argparse
 from pathlib import Path
 from scipy import spatial
 from sklearn.neighbors import NearestNeighbors
-from infercode.data_utils import language_util
 sys.path.append(str(Path('.').absolute().parent))
 from client.infercode_client import InferCodeClient
 #from infercode.data_utils.language_util import LanguageUtil
