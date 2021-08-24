@@ -26,15 +26,17 @@ file1 = args.file1
 file2 = args.file2
 
 with open(file1) as f:
-    code1 = f.read().splitlines()
+    code1 = f.read()#.splitlines()
 
 with open(file2) as f:
-    code2 = f.read().splitlines()
+    code2 = f.read()#.splitlines()
 
+'''
 code1 = remove_trailing_spaces(code1)
 code1 = ' '.join(code1)
 code2 = remove_trailing_spaces(code2)
 code2 = ' '.join(code2)
+'''
 
 print(code1)
 print(code2)

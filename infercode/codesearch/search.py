@@ -22,9 +22,11 @@ logging.basicConfig(level=logging.INFO)
 
 def read_file(filepath):
     with open(filepath) as f:
-        code = f.read().splitlines()
+        code = f.read()#.splitlines()
+    '''
     code = remove_trailing_spaces(code)
     code = ' '.join(code)
+    '''
     print(code)
     return code
 
