@@ -41,6 +41,7 @@ def encode_file(filepath):
     infercode.init_from_config()
     #print("code again: ", code)
     code = [code]
+    print("got to here")
     vector = infercode.encode(code)
     vector = vector[0] #unwrap it from one layer of list
     print(vector)
