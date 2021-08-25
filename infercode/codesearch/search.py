@@ -43,7 +43,7 @@ def encode_file(filepath):
     code = [code]
     vector = infercode.encode(code)
     vector = vector[0] #unwrap it from one layer of list
-    #print(vector)
+    print(vector)
     return vector
 
 
@@ -64,16 +64,22 @@ path = join(sys.path[0], "files")
 files = [f for f in listdir(path) if isfile(join(path, f))]
 
 vectors = []
+#code_snippets = []
 
 for entry in files:
     filepath = join(sys.path[0], "files", entry)
     vector = encode_file(filepath)
     print("current vector:", vector)
     vectors.append(vector)
+    #code = read_file(filepath)
+    #code_snippets.append(code)
+
 
 vectors = np.array(vectors)
+#code_snippets = np.array(code_sippets)
 
-code_vecs = np.column_stack((files, vectors))
+
+#code_vecs = np.column_stack((files, vectors))
 print("all vectors: ", vectors)
 
 neighbours = NearestNeighbors(n_neighbors = 2).fit(vectors)
