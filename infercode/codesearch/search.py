@@ -38,6 +38,7 @@ def encode_file(filepath):
     lang = util.get_language_by_file_extension(extension)
     print(lang)
     infercode = InferCodeClient(language=lang)
+    print("before init")
     infercode.init_from_config()
     #print("code again: ", code)
     code = [code]
